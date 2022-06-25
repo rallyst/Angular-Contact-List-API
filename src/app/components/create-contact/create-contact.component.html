@@ -1,0 +1,75 @@
+<section class="container">
+  <mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <form
+        (submit)="onSaveContact()"
+        *ngIf="!isLoading"
+        [formGroup]="form">
+        <mat-form-field class="name-input">
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            placeholder="Name"
+            required>
+        </mat-form-field>
+        <ng-container *ngIf="mode === 'create'">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              type="text"
+              maxlength="12"
+              formControlName="phone"
+              (keypress)="inputChecker($event)"
+              placeholder="phone"
+              required>
+          </mat-form-field>
+        </ng-container>
+      <ng-container *ngIf="mode === 'edit'">
+        <ng-container  *ngFor="let phone of numbers$ | async; let i = index">
+          <div class="row">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                type="text"
+                maxlength="12"
+                (keypress)="inputChecker($event)"
+                formControlName="phone{{i}}"
+                placeholder="phone"
+                required>   
+            </mat-form-field>
+            <app-delete-button (click)="removeNumber(i)">x</app-delete-button>
+          </div>
+        </ng-container> 
+      </ng-container>
+      <div formArrayName="extraPhones" *ngIf="mode === 'create'">
+        <div class="row" *ngFor="let phone of getExtraPhones.controls; let i = index" [formGroupName]="i">
+          <mat-form-field class="full-width">
+            <input 
+              matInput formControlName="number"
+              maxlength="12"
+              (keypress)="inputChecker($event)"
+              placeholder="phone"
+              required>
+          </mat-form-field>
+          <app-delete-button (click)="removeNumber(i)">x</app-delete-button>
+        </div>
+      </div>
+      <div class="button-block">
+        <div class="control-block">
+          <button 
+            type="button"
+            mat-stroked-button 
+            color="primary" 
+            (click)="addNumber()">Add</button>
+          <button
+            [disabled]="form.invalid"
+            mat-raised-button
+            color="primary"
+            type="submit">Save Contact</button>
+        </div>
+        <button mat-stroked-button color="accent" (click)="goBack()">Back</button>
+      </div>
+    </form>
+  </mat-card>
+</section>

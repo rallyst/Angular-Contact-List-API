@@ -1,0 +1,49 @@
+<div class="container">
+  <mat-card>
+    <section class="control-panel">
+      <mat-form-field class="example-full-width">
+        <input 
+          type="search" 
+          matInput 
+          placeholder="Search" 
+          name= "search" 
+          (ngModelChange)="filter($event)"
+          [(ngModel)]="searchText">
+      </mat-form-field>
+      <mat-form-field class="select">
+        <mat-label>Sort</mat-label>
+        <mat-select [ngModel]="selected" (ngModelChange)="onSort($event)">
+          <mat-option value="asc">Ascending</mat-option>
+          <mat-option value="desc">Descending</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" [routerLink]="['/create']">ADD</button>
+    </section>
+    
+    <mat-paginator 
+      [length]="totalContacts"
+      [pageSize]="contactsPerPage"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onChangedPage($event)">
+    </mat-paginator>
+    <!-- [ngIf]="searchText" -->
+    <ng-template [ngIf]="searchText">
+      <ul>
+        <li *ngFor="let fContact of filContacts$ | async">
+          <a [routerLink]="['/edit', fContact.id]">{{ fContact.name }}</a>
+          <app-delete-button (click)="onDelete(fContact.id)">x</app-delete-button>
+        </li>
+      </ul>
+    </ng-template>
+    <ng-template [ngIf]="!searchText">
+      <ul>
+        <li *ngFor="let contact of contacts$ | async">
+          <a [routerLink]="['/edit', contact.id]">{{ contact.name }}</a>
+          <app-delete-button (click)="onDelete(contact.id)">x</app-delete-button>
+        </li>
+      </ul>
+    </ng-template>
+  </mat-card>
+</div>
+
+

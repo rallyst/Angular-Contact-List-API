@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .row{
+            display: flex;
+            padding: 5px;
+            border: 1px solid black;
+            border-bottom: none;
+        }
+        .row:last-child{
+            border-bottom: 1px solid black;
+        }
+        .row p{
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Endpoints</h1>
+        <div>
+            <h4>Get users</h4>
+            <div>
+                <div class="row">
+                    <p>type:</p>
+                    <p>GET</p>
+                </div>
+                <div class="row">
+                    <p>url:</p>
+                    <p>http://localhost:8000/users?search=${search}&sort=${sort}&page=${page}&quantity=${quantity}</p>
+                </div>
+                <div class="row">
+                    <p>response:</p>
+                    <p>{</br>&nbsp users: { id: number, name: string, phoneNumber: string [] } []</br>&nbsp
+                            length: number</br>}</p>
+                </div>
+                <div class="row">
+                    <p>params:</p>
+                    <p>
+                        search - string</br>
+                        sort - null | 'desc' | 'asc'</br>
+                        page - number</br>
+                        quantity - number
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h4>Get user by id</h4>
+
+            <div>
+                <div class="row">
+                    <p>type:</p>
+                    <p>GET</p>
+                </div>
+                <div class="row">
+                    <p>url:</p>
+                    <p>http://localhost:8000/getuserbyid/${id}</p>
+                </div>
+                <div class="row">
+                    <p>response:</p>
+                    <p>{ </br>&nbsp id: number, </br>&nbsp name: string, </br>&nbsp phoneNumber: string [] </br>}</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Add user</h4>
+
+            <div>
+                <div class="row">
+                    <p>type:</p>
+                    <p>POST</p>
+                </div>
+                <div class="row">
+                    <p>url:</p>
+                    <p>http://localhost:8000/adduser</p>
+                </div>
+                <div class="row">
+                    <p>body:</p>
+                    <p>{ </br>&nbsp name: string, </br>&nbsp phoneNumber: string [] </br>}</p>
+                </div>
+                <div class="row">
+                    <p>response:</p>
+                    <p>string</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Update user</h4>
+            <div>
+                <div class="row">
+                    <p>type:</p>
+                    <p>PUT</p>
+                </div>
+                <div class="row">
+                    <p>url:</p>
+                    <p>http://localhost:8000/updateuser/${id}</p>
+                </div>
+                <div class="row">
+                    <p>body:</p>
+                    <p>{ </br>&nbsp name: string, </br>&nbsp phoneNumber: string [] </br>}</p>
+                </div>
+                <div class="row">
+                    <p>response:</p>
+                    <p>string</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h4>Delete user</h4>
+
+            <div>
+                <div class="row">
+                    <p>type:</p>
+                    <p>DELETE</p>
+                </div>
+                <div class="row">
+                    <p>url:</p>
+                    <p>http://localhost:8000/deleteuser/${id}</p>
+                </div>
+                <div class="row">
+                    <p>response:</p>
+                    <p>string</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+.container {
+  max-width: 800px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+mat-card {
+  margin-top: 30px;
+}
+
+.select {
+  width: 10%;
+  margin: 0 15px;
+}
+
+.example-full-width {
+  width: 70%;
+}
+
+mat-paginator {
+  background-color: transparent;
+}
+
+app-delete-button  {
+  margin-left: 20px;
+}
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+li {
+  padding: 20px 20px 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  
+  a {
+    color: rgb(0, 0, 0, .6);
+    text-decoration: none;
+    font-size: 18px;
+    text-shadow: -1px 1px 4px rgba(150, 150, 150, .6);
+
+    &:hover {
+      color: rgba(0, 0, 0, .85);
+    }
+
+    &:active {
+      color: rgba(0, 0, 0, 1);
+      transform: scale(.99);
+    }
+  }
+}
