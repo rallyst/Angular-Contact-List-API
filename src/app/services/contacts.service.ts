@@ -34,7 +34,7 @@ export class ContactsService implements OnInit {
       )
   }
 
-  getContact(contactId: any) {
+  getContact(contactId: number) {
     const contactURL = `${this.URL}/userbyid/${contactId}`;
     return this.http.get<User>(contactURL);
   }
@@ -65,12 +65,12 @@ export class ContactsService implements OnInit {
       );
   }
 
-  deleteContact(contactId: any) {
+  deleteContact(contactId: number) {
     const deleteUrl = `${this.URL}/deleteuser/${contactId}`;
     return this.http.delete(deleteUrl)
   }
 
-  filter($event: any, totalContacts: any, sort: string) {
+  filter($event: string, totalContacts: number, sort: string) {
     const contactsURL = `${this.URL}/users?search=${$event}&sort=${sort}&page=1&quantity=${totalContacts}`
     return this.http.get<Users>(contactsURL)
     .pipe(

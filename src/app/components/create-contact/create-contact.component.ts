@@ -1,7 +1,7 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ContactsService } from 'src/app/services/contacts.service';
 
 @Component({
@@ -84,7 +84,6 @@ export class CreateContactComponent implements OnInit, AfterViewChecked {
 
   onSaveContact() {
     if (this.form.invalid) return;
-
     if (this.mode === 'create') {
       const { name : name, extraPhones: extraPhones, phone: phones } = this.form.value
       const res:any[] = []
@@ -123,6 +122,7 @@ export class CreateContactComponent implements OnInit, AfterViewChecked {
 
   addNumber() {
     if (this.mode === 'edit') {
+      console.log('length ', this.form.value)
       this.group[`phone${this.phoneNumbers.length}`] = ['', [Validators.required, Validators.minLength(3)]];
       this.form = this.formBuilder.group(this.group);
       this.phoneNumbers.push('');
@@ -138,8 +138,15 @@ export class CreateContactComponent implements OnInit, AfterViewChecked {
   removeNumber(i: number) {
     if (this.mode === 'edit') {
       this.phoneNumbers.splice(i, 1);
-      this.form.removeControl(`phone${i}`)
+      this.form.removeControl(`phone${i}`);
       this._Subject.next(this.phoneNumbers);
+
+      if (this.phoneNumbers.length === 0) {
+        this.group = {
+          name: this.form.value.name
+        }
+        this.form = this.formBuilder.group(this.group);
+      }
     }
     
     if (this.mode === 'create') {

@@ -42,7 +42,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
       .subscribe(data => this.contacts$ = this.contactsService.getContacts(this.contactsPerPage, this.currentPage))
   }
 
-  filter(text: any) {
+  filter(text: string) {
     this.filContacts$ = this.contactsService.filter(text, this.totalContacts, this.selected) 
   }
 
@@ -61,7 +61,8 @@ export class ContactListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDelete(id: any) {
+  onDelete(id: number) {
+    this.totalContacts--;
     this.contactsService.deleteContact(id).subscribe(
       data => data,
       data => this._contactsSubject.next(data)

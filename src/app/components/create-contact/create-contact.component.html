@@ -38,7 +38,7 @@
                 placeholder="phone"
                 required>   
             </mat-form-field>
-            <app-delete-button (click)="removeNumber(i)">x</app-delete-button>
+              <app-delete-button (click)="removeNumber(i)">x</app-delete-button>
           </div>
         </ng-container> 
       </ng-container>
@@ -63,12 +63,12 @@
             color="primary" 
             (click)="addNumber()">Add</button>
           <button
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || (mode === 'edit' && phoneNumbers.length === 0)"
             mat-raised-button
             color="primary"
             type="submit">Save Contact</button>
         </div>
-        <button mat-stroked-button color="accent" (click)="goBack()">Back</button>
+        <button type="button" mat-stroked-button color="accent" (click)="goBack()">Back</button>
       </div>
     </form>
   </mat-card>
