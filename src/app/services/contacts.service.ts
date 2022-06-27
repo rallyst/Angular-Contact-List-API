@@ -47,8 +47,8 @@ export class ContactsService implements OnInit {
 
    this.http.post(`${this.URL}/adduser`, contact)
     .subscribe(
-      data => console.log(data),
-      err => console.log(err)
+      data => data,
+      err => err
     );  
   }
 
@@ -60,8 +60,8 @@ export class ContactsService implements OnInit {
     
     this.http.put(`${this.URL}/updateuser/${id}`, contact)
       .subscribe( 
-        data => console.log(data),
-        err => console.log(err)
+        data => data,
+        err => err
       );
   }
 

@@ -26,7 +26,6 @@
       [pageSizeOptions]="pageSizeOptions"
       (page)="onChangedPage($event)">
     </mat-paginator>
-    <!-- [ngIf]="searchText" -->
     <ng-template [ngIf]="searchText">
       <ul>
         <li *ngFor="let fContact of filContacts$ | async">
@@ -45,5 +44,3 @@
     </ng-template>
   </mat-card>
 </div>
-
-

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ContactsService } from 'src/app/services/contacts.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ContactsService } from 'src/app/services/contacts.service';
   templateUrl: './create-contact.component.html',
   styleUrls: ['./create-contact.component.scss']
 })
-export class CreateContactComponent implements OnInit {
+export class CreateContactComponent implements OnInit, AfterViewChecked {
   isLoading = false;
   form!: FormGroup;
   contactId: any;
@@ -17,21 +17,23 @@ export class CreateContactComponent implements OnInit {
   updatedPhones!: any;
   phoneNumbers: string[] = []
 
-  
   _Subject = new BehaviorSubject<string[]>([]);
   numbers$: Observable<string[]> = this._Subject.asObservable();
 
   mode = 'create';
 
-
-
   constructor (
     private contactsService: ContactsService,
     private router: Router, 
     public route: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cdRef: ChangeDetectorRef) {
       this.group = {};
     } 
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({})
@@ -63,8 +65,6 @@ export class CreateContactComponent implements OnInit {
         this.form = this.formBuilder.group(this.group);
         })
       } else {
-        this.group['name'] = ['', [Validators.required, Validators.minLength(3)]];
-        this.group['phone'] = ['', [Validators.required, Validators.maxLength(10)]];
         this.form = this.formBuilder.group({
           name: '',
           phone: '',
@@ -129,9 +129,9 @@ export class CreateContactComponent implements OnInit {
       this._Subject.next(this.phoneNumbers);
     }
 
-    if (this.mode === 'create') {
+    if (this.mode === 'create') {  
       const extraPhones = this.form.get('extraPhones') as FormArray;
-      extraPhones.push(this.createPhoneForm())
+      extraPhones.push(this.createPhoneForm());
     }
   }
 

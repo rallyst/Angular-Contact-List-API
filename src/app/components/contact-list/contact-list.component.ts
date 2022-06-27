@@ -63,7 +63,7 @@ export class ContactListComponent implements OnInit, OnDestroy {
 
   onDelete(id: any) {
     this.contactsService.deleteContact(id).subscribe(
-      data => console.log(data),
+      data => data,
       data => this._contactsSubject.next(data)
     )
   }
